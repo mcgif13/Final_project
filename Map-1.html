@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Most Basic Web Map</title>
+    
+    <!-- Leaflet CSS stylesheet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            max-width: 960px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.6rem;
+            letter-spacing: -0.04em;
+        }
+
+        .header h3 {
+            margin: 8px 0 0;
+            font-weight: 400;
+            color: #555;
+        }
+
+        .description {
+            max-width: 960px;
+            width: 100%;
+            margin-bottom: 24px;
+            background: #ffffff;
+            padding: 18px 22px;
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        #map {
+            width: 100%;
+            max-width: 960px;
+            height: 620px;
+            border: 4px solid #4a90e2;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header at the top of the page -->
+    <div class="header">
+        <h1>Duluth Points of Interest</h1>
+        <h3>by: Emilia McGiffert</h3>
+    </div>
+    <p class="description">
+        This map highlights some of my favorite places in Duluth, Minnesota.
+    </p>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JavaScript library -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize the map, center of Duluth, and set the zoom level
+        const map = L.map('map').setView([46.7867, -92.1005], 12);
+
+        // Add Esri Satellite tiles
+        const tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+        // add tiles to the map
+        tiles.addTo(map);
+
+        // Custom icons (different colors)
+const redIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+});
+
+const greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+});
+
+const orangeIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+});
+
+        // Add Aerial Lift Bridge
+        const aerialMarker = L.marker([46.7790, -92.0929], { icon: redIcon }).addTo(map);
+        aerialMarker.bindPopup('<b>Aerial Lift Bridge</b><br>Located at the Duluth ship canal, the bridge connects the mainland to Park Point. A major landmark that allows vessel traffic to pass into the harbor.<br><img src="https://lakesuperiorcircletour.info/wp-content/uploads/2020/11/Duluth-Aerial-Lift-Bridge-Adam-Jagunich.jpeg" width="150">').openPopup();
+
+
+        // add a marker for Canal Park
+        const canalParkMarker = L.marker([46.7809, -92.0947], { icon: orangeIcon }).addTo(map);
+        canalParkMarker.bindPopup('<b>Canal Park</b><br>A popular tourist area with great restaurants, shops, and views of the lake!<br><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Duluth_Drone.jpg" width="150">').openPopup();
+
+
+        // Add a marker for Enger Tower
+        const engerMarker = L.marker([46.7761, -92.1249], { icon: orangeIcon }).addTo(map);
+        engerMarker.bindPopup('<b>Enger Tower</b><br>A must-see landmark with incredible views of Duluth and Lake Superior.<br><img src="https://visitduluth.com/wp-content/uploads/2023/07/DLTH21_FallShoot-MH_EngerTower_2-1-scaled.jpg" width="150">').openPopup();
+
+
+        // Add a marker for Glensheen Mansion
+        const glensheenMarker = L.marker([46.8158,-92.0486], { icon: redIcon }).addTo(map);
+        glensheenMarker.bindPopup('<b>Glensheen Mansion</b><br>Glensheen, the Historic Congdon Estate is a 20,000 square foot mansion in Duluth, Minnesota, United States, operated by the University of Minnesota Duluth as a historic house museum.<br><img src="https://glensheen.d.umn.edu/sites/glensheen.d.umn.edu/files/styles/folwell_full/public/2026-01/Glensheen_full_hero_image_1.jpg.avif?itok=8JWoMwOS" width="150">').openPopup(); 
+
+        // Add a marker for the Lakewalk
+        const lakewalkMarker = L.marker([46.7830, -92.0925], { icon: greenIcon }).addTo(map);
+        lakewalkMarker.bindPopup('<b>Lakewalk</b><br>A scenic walking and biking path along the shore of Lake Superior, offering beautiful views and access to parks and beaches.<br><img src="https://images.squarespace-cdn.com/content/v1/553eb058e4b088624077e984/1673285658630-HWOKBMHGVU569QVBZVGK/IMG_20220712_124850854_HDR.jpg" width="150">').openPopup();
+
+        //Add a marker for Spirit Mountain
+        const spiritMarker = L.marker([46.7194, -92.2181], { icon: greenIcon }).addTo(map);
+        spiritMarker.bindPopup('<b>Spirit Mountain</b><br>A popular ski resort in the winter and a great place for hiking and mountain biking in the summer, offering panoramic views of Duluth and Lake Superior.<br><img src="https://spiritmt.com/wp-content/uploads/2022/10/18-02-15-Spirit-Mountain-DJI-2.jpg" width="150">').openPopup();
+
+        // Add a marker for North Shore Scenic Drive
+        const northShoreMarker = L.marker([46.8421, -92.9963], { icon: orangeIcon }).addTo(map);
+        northShoreMarker.bindPopup('<b>North Shore Scenic Drive</b><br>A picturesque route along the north shore of Lake Superior, offering stunning views, access to state parks, waterfalls, and charming towns.<br><img src="https://www.exploreminnesota.com/sites/default/files/styles/hero_desktop/public/2023-08/North%20Shore%20Scenic%20Drive%20-%20Photo%20by%20Visit%20Duluth.jpg?itok=9n8sXo2e" width="150">').openPopup();
+
+        // Add a marker for the Great Lakes Aquarium
+        const aquariumMarker = L.marker([46.7789, -92.1000], { icon: orangeIcon }).addTo(map);
+        aquariumMarker.bindPopup('<b>Great Lakes Aquarium</b><br>An educational and interactive aquarium focused on the aquatic life of the Great Lakes region, featuring exhibits, touch tanks, and a variety of freshwater and marine species.<br><img src="https://glaquarium.org/wp-content/uploads/2023/10/DSC00207-SharpenAI-Standard-1024x682.png" width="150">').openPopup();
+
+        // Add a marker for Jay Cooke State Park
+        const jayCookeMarker = L.marker([46.6402, -92.6547], { icon: greenIcon }).addTo(map);
+        jayCookeMarker.bindPopup('<b>Jay Cooke State Park</b><br>A beautiful state park located just outside of Duluth, offering hiking trails, scenic overlooks, and access to the St. Louis River, making it a great destination for outdoor enthusiasts.<br><img src="https://lakesuperiorcircletour.info/wp-content/uploads/2021/03/Jay-Cooke-State-Park-Suspension-Bridge.jpg" width="150">').openPopup();
+
+        // Add a marker for Park Point
+        const parkPointMarker = L.marker([46.7316, -92.0557], { icon: greenIcon }).addTo(map);
+        parkPointMarker.bindPopup('<b>Park Point</b><br>A long, narrow sandbar that extends from the mainland of Duluth into Lake Superior, offering beaches, recreational opportunities, and stunning views of the city skyline and the lake.<br><img src="https://canalpark.com/wp-lib/wp-content/uploads/2016/06/wisconsin-point-beach-state-park-beach-and-waves-1024x683.jpg" width="150">').openPopup();
+        
+
+    </script>
+</body>
+</html>
